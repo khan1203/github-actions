@@ -1,4 +1,4 @@
-name: Multiple Jobs Lab
+name: Multiple Jobs
 on:
   push:
     branches:
