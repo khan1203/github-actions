@@ -9,14 +9,26 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      BUILD_VERSION: 1.0.0
     steps:
+      - run: echo "Building version $BUILD_VERSION"
+    
       - name: Checkout code
         uses: actions/checkout@v4
       
       - name: Build step
         run: |
           echo "🏗️ Building the application..."
-          echo "Build completed successfully!"
+      
+      - name: Build status
+        if: success()
+        run: echo "✅ Build succeeded!"
+
+      - name: Handle Errors
+        if: failure()
+        run: echo "⚠️ Build failed. Please check the logs!"
   
   # Second job: Test
   test:
@@ -31,6 +43,8 @@ jobs:
   
   # Third job: Deploy
   deploy:
+    if: github.ref == 'refs/heads/main'
+
     name: Deploy Application
     needs: [build, test]  # Depends on both build and test jobs
     runs-on: ubuntu-latest
