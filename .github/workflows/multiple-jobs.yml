@@ -25,6 +25,8 @@ jobs:
       - name: Build status
         if: success()
         run: echo "✅ Build succeeded!"
+
+      - name: Handle Errors
         if: failure()
         run: echo "⚠️ Build failed. Please check the logs!"
   
