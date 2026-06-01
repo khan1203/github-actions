@@ -1,4 +1,4 @@
-name: Docker Nginx Lab
+name: Github Actions (Docker-Nginx)
 
 on:
   pull_request:
